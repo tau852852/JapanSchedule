@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日本旅行行程表 - 翻頁效果</title>
+    <title>日本旅行行程表 - 滑動效果</title>
     
-    <!-- 引用 Swipe.js 插件 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/swipe/2.0.0/swipe.min.js"></script>
+    <!-- 引用 Glide.js 插件 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/glidejs/3.4.1/css/glide.core.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/glidejs/3.4.1/glide.min.js"></script>
     
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background: #f7f7f7;
+            margin: 0;
+            padding: 0;
         }
         .container {
             display: flex;
@@ -26,11 +29,11 @@
             position: relative;
             overflow: hidden;
         }
-        .pages {
+        .glide__track {
             display: flex;
             transition: transform 0.5s ease;
         }
-        .page {
+        .glide__slide {
             width: 400px;
             height: 500px;
             background: white;
@@ -42,31 +45,74 @@
             border: 1px solid #ccc;
             box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
         }
+        .nav-buttons {
+            position: fixed;
+            bottom: 20px;  /* 距離頁面底部20px */
+            left: 50%;
+            transform: translateX(-50%);  /* 水平置中 */
+            display: flex;
+            justify-content: space-between;
+            width: 200px;  /* 設定按鈕容器的寬度 */
+        }
+        .nav-buttons button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 90px;
+        }
+        .nav-buttons button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
     </style>
 </head>
 <body>
 
 <h2>📖 日本旅行行程表</h2>
 <div class="container">
-    <div id="book" class="book">
-        <div class="pages">
-            <div class="page">📅 <b>Day 1</b> - 東京遊覽</div>
-            <div class="page">📅 <b>Day 2</b> - 京都探索</div>
-            <div class="page">📅 <b>Day 3</b> - 大阪美食</div>
-            <div class="page">📅 <b>Day 4</b> - 奈良 & 神戶</div>
+    <div class="book">
+        <!-- Glide.js的滑動區域 -->
+        <div class="glide">
+            <div class="glide__track" data-glide-el="track">
+                <div class="glide__slides">
+                    <div class="glide__slide">📅 <b>東</b> - 東部探索</div>
+                    <div class="glide__slide">📅 <b>西</b> - 西部探索</div>
+                    <div class="glide__slide">📅 <b>南</b> - 南部探索</div>
+                    <div class="glide__slide">📅 <b>北</b> - 北部探索</div>
+                    <div class="glide__slide">📅 <b>中</b> - 中部探索</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- 底部的導航按鈕 -->
+<div class="nav-buttons">
+    <button id="prevBtn">◀️ 上一頁</button>
+    <button id="nextBtn">下一頁 ▶️</button>
+</div>
+
 <script>
-    // 初始化Swipe.js，啟用觸控翻頁功能
-    var book = document.getElementById('book');
-    var swipe = new Swipe(book, {
-        startSlide: 0, // 從第一頁開始
-        speed: 400,    // 翻頁速度
-        continuous: true, // 使翻頁循環
-        disableScroll: true, // 禁用頁面滾動
-        stopPropagation: true // 防止事件冒泡
+    // 初始化Glide.js
+    var glide = new Glide('.glide', {
+        type: 'slider', // 顯示單一頁面
+        startAt: 0, // 從第一頁開始
+        perView: 1,  // 每次顯示1頁
+        gap: 0,  // 頁面間距為0
+        focusAt: 'center',  // 聚焦在中央
+        keyboard: true,  // 允許鍵盤操作
+        swipeThreshold: 80,  // 手指滑動閾值
+    }).mount();
+
+    // 添加上一頁和下一頁的功能
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        glide.prev();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        glide.next();
     });
 </script>
 
