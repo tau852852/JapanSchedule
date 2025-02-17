@@ -11,16 +11,17 @@
             padding: 0;
             overflow: hidden;
         }
+        /* 使用 100% 寬度 */
         .container {
             display: flex;
             flex-direction: row;
-            width: 500%; /* 5頁 */
+            width: 500vw; /* 總共5頁，100%寬度 */
             height: 100vh;
-            transition: transform 0.3s ease-in-out; /* 平滑過渡效果 */
+            transition: transform 0.3s ease-in-out;
         }
         .page {
-            width: 100vw; /* 每一頁佔據螢幕寬度 */
-            height: 100vh;
+            width: 100vw; /* 每一頁佔據螢幕的寬度 */
+            height: 100vh; /* 佔據螢幕的高度 */
             background-size: cover;
             background-position: center;
             color: white;
@@ -29,7 +30,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            flex-shrink: 0; /* 不允許縮小 */
+            flex-shrink: 0;
         }
         .page h2 {
             font-size: 30px;
@@ -57,16 +58,16 @@
             background-image: url('jpg/day1.jpg');
         }
         #day2 {
-            background-image: url('jpg/day1.jpg');
+            background-image: url('jpg/day2.jpg');
         }
         #day3 {
-            background-image: url('day3.jpg');
+            background-image: url('jpg/day3.jpg');
         }
         #day4 {
-            background-image: url('day4.jpg');
+            background-image: url('jpg/day4.jpg');
         }
         #day5 {
-            background-image: url('day5.jpg');
+            background-image: url('jpg/day5.jpg');
         }
     </style>
 </head>
