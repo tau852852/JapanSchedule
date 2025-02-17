@@ -4,23 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>日本旅行行程表 - 翻頁效果</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://www.turnjs.com/lib/turn.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src='http://www.turnjs.com/lib/turn.min.js'></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background: #f7f7f7;
         }
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
         .book {
             width: 400px;
             height: 500px;
-            margin: 50px auto;
+            background: #ddd;
             position: relative;
         }
         .page {
-            width: 100%;
-            height: 100%;
+            width: 400px;
+            height: 500px;
             background: white;
             text-align: center;
             font-size: 24px;
@@ -35,20 +42,22 @@
 <body>
 
 <h2>📖 日本旅行行程表</h2>
-
-<div class="book">
-    <div class="page">📅 <b>Day 1</b> - 東京遊覽</div>
-    <div class="page">📅 <b>Day 2</b> - 京都探索</div>
-    <div class="page">📅 <b>Day 3</b> - 大阪美食</div>
-    <div class="page">📅 <b>Day 4</b> - 奈良 & 神戶</div>
+<div class="container">
+    <div id="book" class="book">
+        <div class="page">📅 <b>Day 1</b> - 東京遊覽</div>
+        <div class="page">📅 <b>Day 2</b> - 京都探索</div>
+        <div class="page">📅 <b>Day 3</b> - 大阪美食</div>
+        <div class="page">📅 <b>Day 4</b> - 奈良 & 神戶</div>
+    </div>
 </div>
 
 <script>
     $(document).ready(function(){
-        $(".book").turn({
-            width: 400,
+        $("#book").turn({
+            width: 800,  // 兩頁寬度（左右翻頁）
             height: 500,
-            autoCenter: true
+            autoCenter: true,
+            display: 'double'
         });
     });
 </script>
