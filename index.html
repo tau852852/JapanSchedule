@@ -1,36 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Japan Trip Schedule</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <title>日本旅行行程表 - 翻頁效果</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.turnjs.com/lib/turn.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f7f7f7;
+        }
+        .book {
+            width: 400px;
+            height: 500px;
+            margin: 50px auto;
+            position: relative;
+        }
+        .page {
+            width: 100%;
+            height: 100%;
+            background: white;
+            text-align: center;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
-<body class="bg-gray-100 p-4 flex flex-col items-center">
-    <h1 class="text-2xl font-bold text-blue-600">Japan Trip Schedule</h1>
-    <div class="bg-white p-4 rounded-lg shadow-lg w-full max-w-md mt-4">
-        <h2 class="text-lg font-semibold">Day 1 - Tokyo</h2>
-        <ul class="list-disc pl-5 text-gray-700">
-            <li>10:00 AM - Visit Senso-ji Temple</li>
-            <li>1:00 PM - Lunch at Tsukiji Outer Market</li>
-            <li>3:00 PM - Explore Akihabara</li>
-            <li>7:00 PM - Dinner in Shinjuku</li>
-        </ul>
-    </div>
-    
-    <div class="mt-6 bg-white p-4 rounded-lg shadow-lg w-full max-w-md">
-        <h2 class="text-lg font-semibold">Share This Schedule</h2>
-        <div id="qrcode" class="flex justify-center mt-4"></div>
-    </div>
-    
-    <script>
-        const url = "https://tau852852.github.io/JapanSchedule/";
-        new QRCode(document.getElementById("qrcode"), {
-            text: url,
-            width: 128,
-            height: 128
+<body>
+
+<h2>📖 日本旅行行程表</h2>
+
+<div class="book">
+    <div class="page">📅 <b>Day 1</b> - 東京遊覽</div>
+    <div class="page">📅 <b>Day 2</b> - 京都探索</div>
+    <div class="page">📅 <b>Day 3</b> - 大阪美食</div>
+    <div class="page">📅 <b>Day 4</b> - 奈良 & 神戶</div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $(".book").turn({
+            width: 400,
+            height: 500,
+            autoCenter: true
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
