@@ -11,87 +11,88 @@
             padding: 0;
             overflow: hidden;
         }
-        /* 使用 100% 寬度 */
+
         .container {
             display: flex;
-            flex-direction: row;
-            width: 100%; /* 總共5頁，100%寬度 */
+            flex-direction: column;
             height: 100vh;
-            transition: transform 0.3s ease-in-out;
+            width: 100%;
         }
+
         .page {
-            width: 100vw; /* 每一頁佔據螢幕的寬度 */
-            height: 100vh; /* 佔據螢幕的高度 */
-            background-size: cover;
-            background-position: center;
-            color: white;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             padding: 20px;
-            flex-shrink: 0;
-        }
-        .page h2 {
-            font-size: 30px;
-            margin: 0;
+            color: white;
+            background-color: #000;
             text-align: center;
         }
-        .page .content {
+
+        /* 每頁的圖片區域 */
+        .image-container {
+            width: 100%;
+            height: 30vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 每頁的標題區域 */
+        .title {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        /* 每頁的行程列表區域 */
+        .content {
             background-color: rgba(0, 0, 0, 0.5);
             width: 100%;
             padding: 20px;
             position: relative;
             bottom: 0;
         }
-        .page .content ul {
+
+        .content ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-        .page .content li {
+
+        .content li {
             font-size: 20px;
             margin-bottom: 10px;
         }
-        /* Background images for each day */
-        #day1 {
-            background-image: url('jpg/day1.jpg');
-            background-size: contain;
-            background-position: top center;  /* 將圖片放在頁面頂端 */
-            height: 30vh;  /* 頁面高度的 3/4 部分，留下 1/4 的高度給圖片 */
+
+        /* 按鈕樣式 */
+        .button-container {
+            margin-top: 20px;
         }
-        #day2 {
-            background-image: url('jpg/day2.jpg');
-            background-size: contain;
-            background-position: top center;  /* 將圖片放在頁面頂端 */
-            height: 30vh;  /* 頁面高度的 3/4 部分，留下 1/4 的高度給圖片 */
+
+        .button-container button {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
         }
-        #day3 {
-            background-image: url('jpg/day3.jpg');
-            background-size: contain;
-            background-position: top center;  /* 將圖片放在頁面頂端 */
-            height: 30vh;  /* 頁面高度的 3/4 部分，留下 1/4 的高度給圖片 */
+
+        .button-container button:hover {
+            background-color: #45a049;
         }
-        #day4 {
-            background-image: url('jpg/day4.jpg');
-            background-size: contain;
-            background-position: top center;  /* 將圖片放在頁面頂端 */
-            height: 30vh;  /* 頁面高度的 3/4 部分，留下 1/4 的高度給圖片 */
-        }
-        #day5 {
-            background-image: url('jpg/day5.jpg');
-            background-size: contain;
-            background-position: top center;  /* 將圖片放在頁面頂端 */
-            height: 30vh;  /* 頁面高度的 3/4 部分，留下 1/4 的高度給圖片 */
-        }
+
     </style>
 </head>
 <body>
 
-<div class="container" id="swipeContainer">
+<div class="container" id="pageContainer">
     <!-- Day 1 -->
     <div class="page" id="day1">
-        <h2>Day 1 - 出發東京</h2>
+        <div class="image-container" style="background-image: url('jpg/day1.jpg');"></div>
+        <div class="title">Day 1 - 出發東京</div>
         <div class="content">
             <ul>
                 <li>早上：搭乘飛機出發</li>
@@ -100,10 +101,15 @@
                 <li>晚上：品嚐當地美食</li>
             </ul>
         </div>
+        <div class="button-container">
+            <button onclick="nextPage(2)">下一頁</button>
+        </div>
     </div>
+
     <!-- Day 2 -->
-    <div class="page" id="day2">
-        <h2>Day 2 - 東京逛街</h2>
+    <div class="page" id="day2" style="display: none;">
+        <div class="image-container" style="background-image: url('jpg/day2.jpg');"></div>
+        <div class="title">Day 2 - 東京逛街</div>
         <div class="content">
             <ul>
                 <li>早上：前往淺草寺參拜</li>
@@ -112,10 +118,15 @@
                 <li>晚上：品嚐拉麵並逛街</li>
             </ul>
         </div>
+        <div class="button-container">
+            <button onclick="nextPage(3)">下一頁</button>
+        </div>
     </div>
+
     <!-- Day 3 -->
-    <div class="page" id="day3">
-        <h2>Day 3 - 出發輕井澤</h2>
+    <div class="page" id="day3" style="display: none;">
+        <div class="image-container" style="background-image: url('jpg/day3.jpg');"></div>
+        <div class="title">Day 3 - 出發輕井澤</div>
         <div class="content">
             <ul>
                 <li>早上：搭乘火車前往輕井澤</li>
@@ -124,10 +135,15 @@
                 <li>晚上：享受當地特色晚餐</li>
             </ul>
         </div>
+        <div class="button-container">
+            <button onclick="nextPage(4)">下一頁</button>
+        </div>
     </div>
+
     <!-- Day 4 -->
-    <div class="page" id="day4">
-        <h2>Day 4 - 輕井澤滑雪</h2>
+    <div class="page" id="day4" style="display: none;">
+        <div class="image-container" style="background-image: url('jpg/day4.jpg');"></div>
+        <div class="title">Day 4 - 輕井澤滑雪</div>
         <div class="content">
             <ul>
                 <li>早上：準備滑雪裝備</li>
@@ -136,10 +152,15 @@
                 <li>晚上：回到飯店休息</li>
             </ul>
         </div>
+        <div class="button-container">
+            <button onclick="nextPage(5)">下一頁</button>
+        </div>
     </div>
+
     <!-- Day 5 -->
-    <div class="page" id="day5">
-        <h2>Day 5 - 悽慘回家</h2>
+    <div class="page" id="day5" style="display: none;">
+        <div class="image-container" style="background-image: url('jpg/day5.jpg');"></div>
+        <div class="title">Day 5 - 悽慘回家</div>
         <div class="content">
             <ul>
                 <li>早上：整理行李準備回程</li>
@@ -147,48 +168,23 @@
                 <li>晚上：抵達家中</li>
             </ul>
         </div>
+        <div class="button-container">
+            <button onclick="nextPage(1)">返回第一頁</button>
+        </div>
     </div>
 </div>
 
 <script>
-    let swipeContainer = document.getElementById("swipeContainer");
-    let currentSlide = 0;
-    const totalSlides = 5;
+    let currentPage = 1;
 
-    // 監聽滑動事件
-    swipeContainer.addEventListener("touchstart", handleTouchStart, false);
-    swipeContainer.addEventListener("touchmove", handleTouchMove, false);
-    swipeContainer.addEventListener("touchend", handleTouchEnd, false);
-
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    function handleTouchStart(event) {
-        touchStartX = event.touches[0].clientX;
-    }
-
-    function handleTouchMove(event) {
-        touchEndX = event.touches[0].clientX;
-    }
-
-    function handleTouchEnd() {
-        if (touchStartX - touchEndX > 50) {
-            // 向左滑動，前進一頁
-            if (currentSlide < totalSlides - 1) {
-                currentSlide++;
-                updateSlide();
-            }
-        } else if (touchEndX - touchStartX > 50) {
-            // 向右滑動，回到上一頁
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlide();
-            }
-        }
-    }
-
-    function updateSlide() {
-        swipeContainer.style.transform = `translateX(-${currentSlide * 100}vw)`;
+    // 顯示下一頁
+    function nextPage(pageNumber) {
+        // 隱藏當前頁
+        document.getElementById(`day${currentPage}`).style.display = 'none';
+        // 顯示下一頁
+        document.getElementById(`day${pageNumber}`).style.display = 'flex';
+        // 更新當前頁
+        currentPage = pageNumber;
     }
 </script>
 
