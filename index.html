@@ -20,14 +20,16 @@
             margin-top: 50px;
         }
         .book {
-            width: 400px;
+            width: 100%;
+            max-width: 800px;
             height: 500px;
             background: #ddd;
             position: relative;
+            touch-action: none; /* 禁止縮放 */
         }
         .page {
-            width: 400px;
-            height: 500px;
+            width: 100%;
+            height: 100%;
             background: white;
             text-align: center;
             font-size: 24px;
@@ -53,11 +55,18 @@
 
 <script>
     $(document).ready(function(){
+        // 初始化 turn.js，啟用觸控支持並設置為雙頁顯示模式
         $("#book").turn({
-            width: 800,  // 兩頁寬度（左右翻頁）
+            width: 800,  // 設置翻頁寬度
             height: 500,
-            autoCenter: true,
-            display: 'double'
+            autoCenter: true,  // 自動居中
+            display: 'double', // 雙頁顯示
+            acceleration: true,  // 啟用加速支持（更流暢的翻頁效果）
+            when: {
+                turning: function(event, page, view) {
+                    // 這裡可以加入翻頁時的事件處理
+                }
+            }
         });
     });
 </script>
