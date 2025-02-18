@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>記帳系統</title>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.8/cdn.min.js"></script>
+    <script defer>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('accounting', () => ({
+                people: ['咨亨','Amber','岱柏','Nine','源杰','娟姐','魚','惠','雰','嘉'],
+                contributions: {},
+                fund: 0,
+                expenses: [],
+                init() {
+                    this.people.forEach(person => this.contributions[person] = 0);
+                    this.loadData();
+                },
+                addFund(amount) {
+                    this.people.forEach(person => this.contributions[person] += amount);
+                    this.fund += amount * this.people.length;
+                    this.saveData();
+                },
+                Zeros() {
+                    this.fund = 0; // 重設公費池金額為 0
+                    this.expenses = []; // 清空所有支出記錄
+                    this.people.forEach(person => this.contributions[person] = 0); // 將每個人的支付總額設為 0
+                    this.saveData(); // 儲存變更到 localStorage
+                },
+                addPersonalFund(person, amount) {
+                    this.contributions[person] += amount;
+                    this.fund += amount;
+                    this.saveData();
+                },
+                addExpense(name, cost) {
+                    this.expenses.push({ name, cost });
+                    this.fund -= cost;
+                    this.saveData();
+                },
+                totalExpenses() {
+                    return this.expenses.reduce((total, expense) => total + expense.cost, 0);
+                },
+                YuJie_CalculateRefunds() { //邏輯由魚節貢獻 function name 已視紀念
+                    let avg = this.fund / this.people.length;
+                    let totalSpent = this.totalExpenses(); // 呼叫 totalExpenses() 來取得總支出
+                    console.log(`總支出：${totalSpent}`); // 顯示總支出
+                    return this.people.map(person => ({
+                        name: person,
+                        refund: (this.contributions[person] - totalSpent/10).toFixed(2)
+                    }));
+                },
+                saveData() {
+                    localStorage.setItem('accounting_data', JSON.stringify({
+                        contributions: this.contributions,
+                        fund: this.fund,
+                        expenses: this.expenses
+                    }));
+                },
+                loadData() {
+                    let data = JSON.parse(localStorage.getItem('accounting_data'));
+                    if (data) {
+                        this.contributions = data.contributions;
+                        this.fund = data.fund;
+                        this.expenses = data.expenses;
+                    }
+                },
+                goToPage(url) {
+                    window.location.href = url;
+                }
+            }));
+        });
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white p-6" x-data="accounting" x-init="init()">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4">記帳系統</h1>
+        <div class="mb-4 p-4 bg-gray-800 rounded-lg shadow">
+            <p class="text-lg">公費池: <span class="font-bold" x-text="fund"></span> 日元</p>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-2 mb-4">
+            <button class="p-2 bg-blue-500 rounded" @click="addFund(10000)">每人支付 10000</button>
+            <button class="p-2 bg-green-500 rounded" @click="addFund(5000)">每人支付 5000</button>
+            <button class="p-2 bg-yellow-500 rounded" @click="addFund(1000)">每人支付 1000</button>
+        </div>
+        
+        <table class="w-full mb-4 bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="text-left bg-gray-700">
+                    <th class="p-2">姓名</th>
+                    <th class="p-2">支付總額</th>
+                    <th class="p-2">額外支付</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="person in people" :key="person">
+                    <tr class="border-t border-gray-700">
+                        <td class="p-2" x-text="person"></td>
+                        <td class="p-2" x-text="contributions[person]"></td>
+                        <td class="p-2">
+                            <input type="number" class="text-black p-1 w-20" placeholder="金額"
+                                   @keyup.enter="addPersonalFund(person, $event.target.valueAsNumber); $event.target.value=''">
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        
+        <h2 class="text-lg font-bold mb-2">記錄支出</h2>
+        <div class="mb-4 flex space-x-2">
+            <input type="text" class="text-black p-2 flex-1" placeholder="支出項目" x-ref="expenseName">
+            <input type="number" class="text-black p-2 w-24" placeholder="金額" x-ref="expenseCost">
+            <button class="p-2 bg-red-500 rounded" @click="addExpense($refs.expenseName.value, Number($refs.expenseCost.value)); $refs.expenseName.value=''; $refs.expenseCost.value=''">新增</button>
+        </div>
+        <ul>
+            <template x-for="expense in expenses" :key="expense.name">
+                <li class="p-2 bg-gray-800 rounded mb-2">支出: <span x-text="expense.name"></span> - <span x-text="expense.cost"></span> 日元</li>
+            </template>
+        </ul>
+        
+        <h2 class="text-lg font-bold mt-4 mb-2">退還計算</h2>
+        <table class="w-full bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="text-left bg-gray-700">
+                    <th class="p-2">姓名</th>
+                    <th class="p-2">應退還</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="refund in YuJie_CalculateRefunds()" :key="refund.name">
+                    <tr class="border-t border-gray-700">
+                        <td class="p-2" x-text="refund.name"></td>
+                        <td class="p-2" x-text="refund.refund"></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <h2 class="text-lg font-bold mt-4 mb-2">其他</h2>
+        <div class="grid grid-cols-3 gap-2 mb-4">
+            <button class="bg-red-500 rounded" @click="Zeros()">全部清除</button>
+            <button class="bg-blue-500 rounded" @click="goToPage('index.html')">回首頁</button>
+        </div>
+    </div>
+</body>
+</html>
