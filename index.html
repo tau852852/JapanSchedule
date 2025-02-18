@@ -15,7 +15,6 @@
         .container {
             display: flex;
             flex-direction: column;
-            background-image: url('jpg/background.jpg');
             height: 100vh;
             width: 100%;
         }
@@ -114,8 +113,8 @@
             </ul>
         </div>
         <div class="button-container">
-            <button onclick="prevPage(5)">上一頁</button>
-            <button onclick="nextPage(2)">下一頁</button>
+            <button onclick="prevPage(5)"><<</button>
+            <button onclick="nextPage(2)">>></button>
         </div>
     </div>
 
@@ -132,8 +131,8 @@
             </ul>
         </div>
         <div class="button-container">
-            <button onclick="prevPage(1)">上一頁</button>
-            <button onclick="nextPage(3)">下一頁</button>
+            <button onclick="prevPage(1)"><<</button>
+            <button onclick="nextPage(3)">>></button>
         </div>
     </div>
 
@@ -150,8 +149,8 @@
             </ul>
         </div>
         <div class="button-container">
-            <button onclick="prevPage(2)">上一頁</button>
-            <button onclick="nextPage(4)">下一頁</button>
+            <button onclick="prevPage(2)"><<</button>
+            <button onclick="nextPage(4)">>></button>
         </div>
     </div>
 
@@ -168,8 +167,8 @@
             </ul>
         </div>
         <div class="button-container">
-            <button onclick="prevPage(3)">上一頁</button>
-            <button onclick="nextPage(5)">下一頁</button>
+            <button onclick="prevPage(3)"><<</button>
+            <button onclick="nextPage(5)">>></button>
         </div>
     </div>
 
@@ -185,8 +184,8 @@
             </ul>
         </div>
         <div class="button-container">
-            <button onclick="prevPage(4)">上一頁</button>
-            <button onclick="nextPage(1)">返回第一頁</button>
+            <button onclick="prevPage(4)"><<</button>
+            <button onclick="nextPage(1)">>></button>
         </div>
     </div>
 </div>
@@ -217,9 +216,9 @@
 
     document.body.addEventListener('touchend', (e) => {
         let endX = e.changedTouches[0].clientX;
-        if (startX - endX > 50) {
+        if (startX - endX > 50 && currentPage < 5) {
             nextPage(currentPage + 1); // 左滑，跳到下一頁
-        } else if (endX - startX > 50) {
+        } else if (endX - startX > 50 && currentPage > 1) {
             prevPage(currentPage - 1); // 右滑，跳到上一頁
         }
     });
