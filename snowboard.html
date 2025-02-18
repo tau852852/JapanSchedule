@@ -3,134 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>機票資訊</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            width: 100%;
-        }
-
-        .page {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 50px;
-            color: white;
-            background-color: #000;
-            text-align: center;
-            position: relative;
-        }
-
-        .image-container {
-            width: 100%;
-            height: 40vh;
-            margin-top: 0px;
-            margin-bottom: 150px;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat; /* 防止圖片重複 */
-        }
-
-        .title {
-            font-size: 30px;
-            height: 25vh;
-            font-weight: bold;
-            margin-top: -40px;
-            margin-bottom: -70px; /* 調整與標題的距離 */
-        }
-
-        .button-container button:hover {
-            background-color: #0a0a0a;
-        }
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-        }
-
-        .bottom-nav button {
-            background-color: rgb(147, 147, 145);
-            border: none;
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-    </style>
-</head>
-<body>
-
-<div class="container" id="pageContainer">
-    <!-- Page 1 -->
-    <div class="page" id="tickets">
-        <div class="title">出發東京</div>
-        <div class="image-container" style="background-image: url('jpg/tickets/departing.jpg');"></div>
-        <div class="title">悽慘回家</div>
-        <div class="image-container" style="background-image: url('jpg/tickets/arriving.jpg');"></div>
-        <!-- 加入五個新按鈕 -->
-        <div class="bottom-nav">
-            <button onclick="goToPage('tickets.html')">機票資訊</button>
-            <button onclick="goToPage('schedule.html')">行程資訊</button>
-            <button onclick="goToPage('RentCar.html')">租車資訊</button>
-            <button onclick="goToPage('snowboard.html')">滑雪資訊</button>
-            <button onclick="goToPage('viewport.html')">記帳系統</button>
-            <button onclick="goToPage('index.html')">回首頁</button>
-        </div>
+    <title>雪場資訊</title>
+    <div class="grid grid-cols-5 gap-2 mb-4">
+        <button class="bg-gray-500 rounded" @click="goToPage('index.html')">回首頁</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('tickets.html')">機票資訊</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('schedule.html')">行程資訊</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('RentCar.html')">租車資訊</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('viewport.html')">記帳系統</button>
     </div>
-</div>
-
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.8/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white p-6" x-data="snowResort">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4 text-center">雪場資訊</h1>
+        <!-- 雪場地圖 -->
+        <div class="mb-6 text-center">
+            <img src="/jpg/snowboard/mountain_map.jpg" alt="雪場地圖" class="mx-auto w-full max-w-lg rounded-lg shadow-lg">
+        </div>
+        
+        <!-- 門票資訊 -->
+        <h2 class="text-xl font-bold mb-2">門票價格</h2>
+        <table class="w-full mb-4 bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="bg-gray-700 text-left">
+                    <th class="p-2">購票方式</th>
+                    <th class="p-2">一天</th>
+                    <th class="p-2">四小時</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">現場購票</td>
+                    <td class="p-2">8800￥</td>
+                    <td class="p-2">8300￥</td>
+                </tr>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">網路購票</td>
+                    <td class="p-2">7800￥</td>
+                    <td class="p-2">7300￥</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- 租借設備資訊 -->
+        <h2 class="text-xl font-bold mb-2">租借設備價格</h2>
+        <table class="w-full mb-4 bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="bg-gray-700 text-left">
+                    <th class="p-2">租借時間</th>
+                    <th class="p-2">價格</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">兩天</td>
+                    <td class="p-2">12000￥</td>
+                </tr>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">一天</td>
+                    <td class="p-2">6000￥</td>
+                </tr>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">四小時</td>
+                    <td class="p-2">5500￥</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- 觀光纜車資訊 -->
+        <h2 class="text-xl font-bold mb-2">觀光纜車票價</h2>
+        <table class="w-full mb-4 bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="bg-gray-700 text-left">
+                    <th class="p-2">票種</th>
+                    <th class="p-2">價格</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">一般購票</td>
+                    <td class="p-2">2000￥</td>
+                </tr>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">會員購票</td>
+                    <td class="p-2">1800￥</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
 <script>
-    let currentPage = 1;
-
-    // 顯示下一頁
-    function nextPage(pageNumber) {
-        document.getElementById(`day${currentPage}`).style.display = 'none';
-        document.getElementById(`day${pageNumber}`).style.display = 'flex';
-        currentPage = pageNumber;
-    }
-
-    // 顯示上一頁
-    function prevPage(pageNumber) {
-        document.getElementById(`day${currentPage}`).style.display = 'none';
-        document.getElementById(`day${pageNumber}`).style.display = 'flex';
-        currentPage = pageNumber;
-    }
-    function goToPage(url) {
-        window.location.href = url;
-    }
-
-    // 手勢滑動
-    let startX;
-
-    document.body.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-    });
-
-    document.body.addEventListener('touchend', (e) => {
-        let endX = e.changedTouches[0].clientX;
-        if (startX - endX > 50 && currentPage < 5) {
-            nextPage(currentPage + 1); // 左滑，跳到下一頁
-        } else if (endX - startX > 50 && currentPage > 1) {
-            prevPage(currentPage - 1); // 右滑，跳到上一頁
-        }
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('snowResort', () => ({
+            goToPage(url) {
+                window.location.href = url;
+            }
+        }));
     });
 </script>
-
-</body>
 </html>

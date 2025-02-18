@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>記帳系統</title>
+    <div class="grid grid-cols-5 gap-2 mb-4">
+        <button class="bg-gray-500 rounded" @click="goToPage('index.html')">回首頁</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('tickets.html')">機票資訊</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('schedule.html')">行程資訊</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('RentCar.html')">租車資訊</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('snowboard.html')">雪場資訊</button>
+    </div>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.8/cdn.min.js"></script>
     <script defer>
         document.addEventListener('alpine:init', () => {
             Alpine.data('accounting', () => ({
-                people: ['咨亨','Amber','岱柏','Nine','源杰','娟姐','魚','惠','雰','嘉'],
+                people: ['咨亨','Amber','岱柏','Nine','源杰','娟姐','醜魚','胖惠','雰','嘉'],
                 contributions: {},
                 fund: 0,
                 pool: 0,
@@ -150,7 +157,6 @@
         <h2 class="text-lg font-bold mt-4 mb-2">其他</h2>
         <div class="grid grid-cols-3 gap-2 mb-4">
             <button class="bg-red-500 rounded" @click="Zeros()">全部清除</button>
-            <button class="bg-blue-500 rounded" @click="goToPage('index.html')">回首頁</button>
         </div>
     </div>
 </body>
