@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>雪場資訊</title>
     <style>
-    .image-container {
-        width: 100%;
-        height: 100vh;
-        margin-top: 0px;
-        margin-bottom: 5px;
-        background-size: cover;
-        background-position: center;
-    }
+        .image-container {
+            width: 100%;
+            height: 100vh;
+            margin-top: -195px;
+            margin-bottom: -155px;
+            background-size: contain; /* 改成 contain */
+            background-position: center;
+            background-repeat: no-repeat; /* 防止圖片重複 */
+        }
     </style>
     <div class="grid grid-cols-5 gap-2 mb-4">
         <button class="bg-gray-500 rounded" @click="goToPage('index.html')">回首頁</button>
