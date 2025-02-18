@@ -11,6 +11,7 @@
                 people: ['咨亨','Amber','岱柏','Nine','源杰','娟姐','魚','惠','雰','嘉'],
                 contributions: {},
                 fund: 0,
+                pool: 0,
                 expenses: [],
                 init() {
                     this.people.forEach(person => this.contributions[person] = 0);
@@ -19,10 +20,12 @@
                 addFund(amount) {
                     this.people.forEach(person => this.contributions[person] += amount);
                     this.fund += amount * this.people.length;
+                    this.pool += amount * this.people.length;
                     this.saveData();
                 },
                 Zeros() {
                     this.fund = 0; // 重設公費池金額為 0
+                    this.pool = 0;
                     this.expenses = []; // 清空所有支出記錄
                     this.people.forEach(person => this.contributions[person] = 0); // 將每個人的支付總額設為 0
                     this.saveData(); // 儲存變更到 localStorage
@@ -30,6 +33,12 @@
                 addPersonalFund(person, amount) {
                     this.contributions[person] += amount;
                     this.fund += amount;
+                    this.extraPayments[person] = (this.extraPayments[person] || 0) + amount;  // 記錄額外支付
+                    this.saveData();
+                },
+                getDisplayPool() {
+                    let totalExtraPayments = Object.values(this.extraPayments).reduce((sum, value) => sum + value, 0);
+                    this.pool -= (this.fund - totalExtraPayments);
                     this.saveData();
                 },
                 addExpense(name, cost) {
@@ -53,6 +62,7 @@
                     localStorage.setItem('accounting_data', JSON.stringify({
                         contributions: this.contributions,
                         fund: this.fund,
+                        pool: this.pool,
                         expenses: this.expenses
                     }));
                 },
@@ -61,6 +71,7 @@
                     if (data) {
                         this.contributions = data.contributions;
                         this.fund = data.fund;
+                        this.pool = data.pool;
                         this.expenses = data.expenses;
                     }
                 },
@@ -76,7 +87,7 @@
     <div class="max-w-4xl mx-auto">
         <h1 class="text-2xl font-bold mb-4">記帳系統</h1>
         <div class="mb-4 p-4 bg-gray-800 rounded-lg shadow">
-            <p class="text-lg">公費池: <span class="font-bold" x-text="fund"></span> 日元</p>
+            <p class="text-lg">公費池: <span class="font-bold" x-text="pool"></span> 日元</p>
         </div>
         
         <div class="grid grid-cols-3 gap-2 mb-4">
