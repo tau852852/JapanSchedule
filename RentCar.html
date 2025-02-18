@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日本旅行行程表</title>
+    <title>機票資訊</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,23 +31,6 @@
             text-align: center;
             position: relative;
         }
-
-        .image-container {
-            width: 130%;
-            height: 30vh;
-            margin-top: -50px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .title {
-            font-size: 30px;
-            height: 25vh;
-            font-weight: bold;
-            margin-top: 10px;
-            margin-bottom: 5px; /* 調整與標題的距離 */
-        }
-
         .content {
             display: flex;
             flex-direction: column;
@@ -55,53 +38,39 @@
             align-items: center;
             background-color: rgba(0, 0, 0, 0.5);
             width: 100%;
-            height: 45vh;
+            height: 70vh;
             padding: 10px;
             position: relative;
-            top: -120px;
+            top: -60px;
             bottom: 0;
             overflow-y: auto;
         }
 
-        .content ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .content li {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .button-container {
-            position: absolute;
-            bottom: 10%;
-            height: 30vh;
-            width: 100%;
+        .image-container {
             display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
+            width: 100%;
+            height: 50vh;
+            margin-top: 0px;
+            margin-bottom: 1px;
+            justify-content: space-between; /* 讓圖片之間更貼近 */
+            align-items: center; /* 垂直置中圖片 */
+            background-size: contain; /* 讓圖片完整顯示並保持比例 */
+            background-position: center; /* 讓圖片居中顯示 */
+            background-repeat: no-repeat; /* 防止圖片重複 */
         }
 
-        .button-container button {
-            width: 50px;  /* 設定按鈕寬度，根據 GIF 調整 */
-            height: 50px; /* 設定按鈕高度 */
-            background-size: contain; /* 讓背景圖片完整顯示 */
-            background-position: center;
-            background-repeat: no-repeat;
-            border: none; /* 移除邊框 */
-            cursor: pointer;
-            background-color: transparent; /* 讓背景透明 */
-        }
-        /* 給兩個按鈕設定相同的背景 GIF */
-        .prev-button, .next-button {
-            background-image: url('jpg/direction.gif');
+        .image-container img {
+            width: 33.33%; /* 每張圖片佔容器的三分之一寬度 */
+            height: 100%; /* 高度填滿容器 */
+            object-fit: contain; /* 保持圖片比例並完整顯示 */
         }
 
-        /* 讓 "上一頁" 的按鈕 180 度旋轉 */
-        .prev-button {
-            transform: rotate(180deg);
+        .title {
+            font-size: 30px;
+            height: 25vh;
+            font-weight: bold;
+            margin-top: -40px;
+            margin-bottom: -70px; /* 調整與標題的距離 */
         }
 
         .button-container button:hover {
@@ -131,104 +100,22 @@
 <body>
 
 <div class="container" id="pageContainer">
-    <!-- Day 1 -->
-    <div class="page" id="day1">
-        <div class="image-container" style="background-image: url('jpg/day1.jpg');"></div>
-        <div class="title">Day 1 - 出發東京</div>
+    <!-- Page 1 -->
+    <div class="page" id="tickets">
+        <div class="title">Honda-Freed</div>
         <div class="content">
-            <ul>
-                <li>04:00 桃園機場</li>
-                <li>11:00 成田機場，轉車東京</li>
-                <li>14:00 池袋車站，寄放行李</li>
-                <li>15:00 原宿巡禮，明治神宮，代代木</li>
-                <li>17:00 逛街，自由時間</li>
-                <li>19:15 超讚燒烤，Yoroniku</li>
-                <li>21:00 買酒回民宿</li>
-            </ul>
+            <div class="image-container" style="background-image: url('jpg/car/freed_1.jpg');"></div>
+            <div class="image-container" style="background-image: url('jpg/car/freed_2.jpg');"></div>
+            <div class="image-container" style="background-image: url('jpg/car/freed_3.jpg');"></div>
         </div>
-        <div class="button-container">
-            <button onclick="prevPage(1)"></button>
-            <button onclick="nextPage(2)" class= "next-button"></button>
-        </div>
-        <!-- 加入四個新按鈕 -->
+        <!-- 加入五個新按鈕 -->
         <div class="bottom-nav">
             <button onclick="goToPage('tickets.html')">機票資訊</button>
+            <button onclick="goToPage('schedule.html')">行程資訊</button>
             <button onclick="goToPage('RentCar.html')">租車資訊</button>
             <button onclick="goToPage('snowboard.html')">滑雪資訊</button>
-            <button onclick="goToPage('index.html')">回首頁</button>
-        </div>
-    </div>
-
-    <!-- Day 2 -->
-    <div class="page" id="day2" style="display: none;">
-        <div class="image-container" style="background-image: url('jpg/day2.jpg');"></div>
-        <div class="title">Day 2 - 東京逛街</div>
-        <div class="content">
-            <ul>
-                <li>早上：起得來的人去築地吃海鮮</li>
-                <li>中午：拉麵鴨to蔥/宇奈 鰻魚飯</li>
-                <li>下午：上野恩賜公園、櫻花有夠美</li>
-                <li>晚上：[晚餐要討論]</li>
-            </ul>
-        </div>
-        <div class="button-container">
-            <button onclick="prevPage(1)" class= "prev-button"></button>
-            <button onclick="nextPage(3)" class= "next-button"></button>
-        </div>
-    </div>
-
-    <!-- Day 3 -->
-    <div class="page" id="day3" style="display: none;">
-        <div class="image-container" style="background-image: url('jpg/day3.jpg');"></div>
-        <div class="title">Day 3 - 出發輕井澤</div>
-        <div class="content">
-            <ul>
-                <li>08:00 駕駛出發去新宿租車</li>
-                <li>09:15 上行李出發輕井澤</li>
-                <li>12:30 午餐時間 川上庵輕井澤本店</li>
-                <li>13:30 DELiCiA 超市買烤肉食材</li>
-                <li>14:30 Check-in 超讚民宿</li>
-                <li>16:00 [輕井澤景點 小諸城 要討論]</li>
-            </ul>
-        </div>
-        <div class="button-container">
-            <button onclick="prevPage(2)" class= "prev-button"></button>
-            <button onclick="nextPage(4)" class= "next-button"></button>
-        </div>
-    </div>
-
-    <!-- Day 4 -->
-    <div class="page" id="day4" style="display: none;">
-        <div class="image-container" style="background-image: url('jpg/day4.jpg');"></div>
-        <div class="title">Day 4 - 輕井澤滑雪</div>
-        <div class="content">
-            <ul>
-                <li>早上：準備滑雪裝備</li>
-                <li>中午：滑雪休息</li>
-                <li>下午：繼續滑雪</li>
-                <li>晚上：回到飯店休息</li>
-            </ul>
-        </div>
-        <div class="button-container">
-            <button onclick="prevPage(3)" class= "prev-button"></button>
-            <button onclick="nextPage(5)" class= "next-button"></button>
-        </div>
-    </div>
-
-    <!-- Day 5 -->
-    <div class="page" id="day5" style="display: none;">
-        <div class="image-container" style="background-image: url('jpg/day5.jpg');"></div>
-        <div class="title">Day 5 - 悽慘回家</div>
-        <div class="content">
-            <ul>
-                <li>早上：整理行李準備回程</li>
-                <li>中午：搭乘飛機回家</li>
-                <li>晚上：回到台灣好可憐，[續攤?]</li>
-            </ul>
-        </div>
-        <div class="button-container">
-            <button onclick="prevPage(4)" class= "prev-button"></button>
-        </div>
+            <button onclick="goToPage('viewport.html')">記帳系統</button>
+            <button onclick="goToPage('index.html')">回首頁</button>        </div>
     </div>
 </div>
 
