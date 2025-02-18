@@ -82,17 +82,27 @@
         }
 
         .button-container button {
-            font-size: 18px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
+            width: 50px;  /* 設定按鈕寬度，根據 GIF 調整 */
+            height: 50px; /* 設定按鈕高度 */
+            background-size: contain; /* 讓背景圖片完整顯示 */
+            background-position: center;
+            background-repeat: no-repeat;
+            border: none; /* 移除邊框 */
             cursor: pointer;
-            border-radius: 5px;
+            background-color: transparent; /* 讓背景透明 */
+        }
+        /* 給兩個按鈕設定相同的背景 GIF */
+        .prev-button, .next-button {
+            background-image: url('jpg/direction.gif');
+        }
+
+        /* 讓 "上一頁" 的按鈕 180 度旋轉 */
+        .prev-button {
+            transform: rotate(180deg);
         }
 
         .button-container button:hover {
-            background-color: #45a049;
+            background-color: #0a0a0a;
         }
 
     </style>
@@ -113,8 +123,8 @@
             </ul>
         </div>
         <div class="button-container">
-            <button onclick="prevPage(5)"><<</button>
-            <button onclick="nextPage(2)">>></button>
+            <button onclick="prevPage(1)"></button>
+            <button onclick="nextPage(2)" class= "next-button"></button>
         </div>
     </div>
 
@@ -131,8 +141,8 @@
             </ul>
         </div>
         <div class="button-container">
-            <button onclick="prevPage(1)"><<</button>
-            <button onclick="nextPage(3)">>></button>
+            <button onclick="prevPage(1)" class= "prev-button"></button>
+            <button onclick="nextPage(3)" class= "next-button"></button>
         </div>
     </div>
 
@@ -149,8 +159,8 @@
             </ul>
         </div>
         <div class="button-container">
-            <button onclick="prevPage(2)"><<</button>
-            <button onclick="nextPage(4)">>></button>
+            <button onclick="prevPage(2)" class= "prev-button"></button>
+            <button onclick="nextPage(4)" class= "next-button"></button>
         </div>
     </div>
 
@@ -167,8 +177,8 @@
             </ul>
         </div>
         <div class="button-container">
-            <button onclick="prevPage(3)"><<</button>
-            <button onclick="nextPage(5)">>></button>
+            <button onclick="prevPage(3)" class= "prev-button"></button>
+            <button onclick="nextPage(5)" class= "next-button"></button>
         </div>
     </div>
 
@@ -184,8 +194,7 @@
             </ul>
         </div>
         <div class="button-container">
-            <button onclick="prevPage(4)"><<</button>
-            <button onclick="nextPage(1)">>></button>
+            <button onclick="prevPage(4)" class= "prev-button"></button>
         </div>
     </div>
 </div>
