@@ -3,22 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>機票資訊</title>
+    <title>租車資訊</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            width: 100%;
-        }
-
         .page {
             height: 100%;
             display: flex;
@@ -31,130 +17,120 @@
             text-align: center;
             position: relative;
         }
-        .content {
-            display: flex;
-            flex-direction: column;
-            margin-top: 5px;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            width: 100%;
-            height: 70vh;
-            padding: 10px;
-            position: relative;
-            top: -60px;
-            bottom: 0;
-            overflow-y: auto;
-        }
-
         .image-container {
-            display: flex;
             width: 100%;
             height: 50vh;
-            margin-top: 0px;
-            margin-bottom: 1px;
-            justify-content: space-between; /* 讓圖片之間更貼近 */
-            align-items: center; /* 垂直置中圖片 */
-            background-size: contain; /* 讓圖片完整顯示並保持比例 */
-            background-position: center; /* 讓圖片居中顯示 */
+            margin-top: -90px;
+            margin-bottom: -60px;
+            background-size: contain; /* 改成 contain */
+            background-position: center;
             background-repeat: no-repeat; /* 防止圖片重複 */
         }
-
-        .image-container img {
-            width: 33.33%; /* 每張圖片佔容器的三分之一寬度 */
-            height: 100%; /* 高度填滿容器 */
-            object-fit: contain; /* 保持圖片比例並完整顯示 */
-        }
-
-        .title {
-            font-size: 30px;
-            height: 25vh;
-            font-weight: bold;
-            margin-top: -40px;
-            margin-bottom: -70px; /* 調整與標題的距離 */
-        }
-
-        .button-container button:hover {
-            background-color: #0a0a0a;
-        }
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
+        .image-container_sub {
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
+            height: 50vh;
+            margin-top: -100px;
+            margin-bottom: -120px;
+            background-size: contain; /* 改成 contain */
+            background-position: center;
+            background-repeat: no-repeat; /* 防止圖片重複 */
         }
-
-        .bottom-nav button {
-            background-color: rgb(147, 147, 145);
-            border: none;
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
+        
     </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-
-<div class="container" id="pageContainer">
-    <!-- Page 1 -->
-    <div class="page" id="tickets">
-        <div class="title">Honda-Freed</div>
-        <div class="content">
-            <div class="image-container" style="background-image: url('jpg/car/freed_1.jpg');"></div>
-            <div class="image-container" style="background-image: url('jpg/car/freed_2.jpg');"></div>
-            <div class="image-container" style="background-image: url('jpg/car/freed_3.jpg');"></div>
+<body class="bg-black text-white p-6">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4 text-center">租車資訊</h1>
+        
+        <!-- 主圖片 -->
+        <div class="image-container" style="background-image: url('jpg/car/freed_1.jpg');"></div>
+        
+        <!-- 租車資訊表格 -->
+        <h2 class="text-xl font-bold mb-2">Honda - Freeds</h2>
+        <table class="w-full mb-4 bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="bg-gray-700 text-left">
+                    <th class="p-2">標價</th>
+                    <th class="p-2">座位</th>
+                    <th class="p-2">空間</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">$1500/天</td>
+                    <td class="p-2">5</td>
+                    <td class="p-2">大</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="text-xl font-bold mb-2">租車資訊</h2>
+        <table class="w-full mb-4 bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="bg-gray-700 text-left">
+                    <th class="p-2">租借地點</th>
+                    <th class="p-2">租借日期</th>
+                    <th class="p-2">租借時間</th>
+ 
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">新宿車站</td>
+                    <td class="p-2">3/17</td>
+                    <td class="p-2">AM 8:30</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="text-xl font-bold mb-2">還車資訊</h2>
+        <table class="w-full mb-4 bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="bg-gray-700 text-left">
+                    <th class="p-2">歸還地點</th>
+                    <th class="p-2">租借日期</th>
+                    <th class="p-2">租借時間</th>
+ 
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">成田機場(再議)</td>
+                    <td class="p-2">3/19</td>
+                    <td class="p-2">PM 13:00</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="text-l font-bold mb-2">注意事項</h2>
+        <h2 class="text-l">1. 要申請E-tag</h2>
+        <h2 class="text-l">2. 還車時油要加滿</h2>
+        <h2 class="text-l mb-4">3. 還車時油要加滿</h2>
+    
+        
+        <!-- 車輛細節圖片 -->
+        <h2 class="text-xl font-bold mb-2">車輛細節</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <h3 class="text-left bg-gray-600 font-semibold">車尾</h3>
+                <div class="image-container_sub" style="background-image: url('jpg/car/freed_6.jpg');"></div>
+            </div>
+            <div>
+                <h3 class="text-left bg-gray-600 font-semibold">內裝</h3>
+                <div class="image-container_sub" style="background-image: url('jpg/car/freed_4.jpg');"></div>
+            </div>
+            <div>
+                <h3 class="text-left bg-gray-600 font-semibold">空間</h3>
+                <div class="image-container_sub" style="background-image: url('jpg/car/freed_2.jpg');"></div>
+            </div>
+            <div>
+                <h3 class="text-left bg-gray-600 font-semibold">後行李箱</h3>
+                <div class="image-container_sub" style="background-image: url('jpg/car/freed_3.jpg');"></div>
+            </div>
         </div>
-        <!-- 加入五個新按鈕 -->
-        <div class="bottom-nav">
-            <button onclick="goToPage('tickets.html')">機票資訊</button>
-            <button onclick="goToPage('schedule.html')">行程資訊</button>
-            <button onclick="goToPage('RentCar.html')">租車資訊</button>
-            <button onclick="goToPage('snowboard.html')">滑雪資訊</button>
-            <button onclick="goToPage('viewport.html')">記帳系統</button>
-            <button onclick="goToPage('index.html')">回首頁</button>        </div>
+        
+        <div class="button-container">
+            <button onclick="prevPage(2)" class= "next-button"></button>
+        </div>
     </div>
-</div>
-
-<script>
-    let currentPage = 1;
-
-    // 顯示下一頁
-    function nextPage(pageNumber) {
-        document.getElementById(`day${currentPage}`).style.display = 'none';
-        document.getElementById(`day${pageNumber}`).style.display = 'flex';
-        currentPage = pageNumber;
-    }
-
-    // 顯示上一頁
-    function prevPage(pageNumber) {
-        document.getElementById(`day${currentPage}`).style.display = 'none';
-        document.getElementById(`day${pageNumber}`).style.display = 'flex';
-        currentPage = pageNumber;
-    }
-    function goToPage(url) {
-        window.location.href = url;
-    }
-
-    // 手勢滑動
-    let startX;
-
-    document.body.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-    });
-
-    document.body.addEventListener('touchend', (e) => {
-        let endX = e.changedTouches[0].clientX;
-        if (startX - endX > 50 && currentPage < 5) {
-            nextPage(currentPage + 1); // 左滑，跳到下一頁
-        } else if (endX - startX > 50 && currentPage > 1) {
-            prevPage(currentPage - 1); // 右滑，跳到上一頁
-        }
-    });
-</script>
 
 </body>
 </html>
