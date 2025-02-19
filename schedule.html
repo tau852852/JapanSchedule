@@ -3,22 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日本旅行行程表</title>
+    <title>行事曆</title>
     <style>
         body {
+            background-color: black;
+            color: white;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-        }
-
-        .container {
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            width: 100%;
+            height: 100vh; /* 讓頁面填滿整個高度 */
         }
-
         .page {
             height: 100%;
             display: flex;
@@ -31,50 +27,56 @@
             text-align: center;
             position: relative;
         }
-
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-grow: 1; /* 讓container在剩餘空間中自動伸展 */
+        }
         .image-container {
-            width: 130%;
-            height: 30vh;
-            margin-top: -50px;
+            width: 100%;
+            height: 50vh;
+            margin-bottom: 10px;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
         }
-
-        .title {
-            font-size: 30px;
-            height: 25vh;
-            font-weight: bold;
-            margin-top: 10px;
-            margin-bottom: 5px; /* 調整與標題的距離 */
-        }
-
-        .content {
+        .calendar {
             display: flex;
-            flex-direction: column;
-            margin-top: 5px;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            width: 100%;
-            height: 45vh;
+            justify-content: center;
+            flex-grow: 1; /* 讓日曆區域填滿剩餘的垂直空間 */
+            padding: 20px 0;
+        }
+        .day {
+            width: 100%; /* 填滿整個父容器的寬度 */
+            margin: 0 10px;
+            background-color: #333;
             padding: 10px;
-            position: relative;
-            top: -100px;
-            margin-bottom: 100px; 
-            overflow-y: auto;
+            border-radius: 8px;
         }
-
-        .content ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .content li {
-            font-size: 20px;
+        .day h2 {
+            font-size: 24px;
+            text-align: center;
             margin-bottom: 10px;
         }
-
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .schedule-table th, .schedule-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #555;
+        }
+        .schedule-table th {
+            background-color: #444;
+        }
         .button-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .button-container_page {
             position: absolute;
             bottom: 10%;
             height: 30vh;
@@ -84,7 +86,7 @@
             padding: 0 20px;
         }
 
-        .button-container button {
+        .button-container_page button {
             width: 50px;  /* 設定按鈕寬度，根據 GIF 調整 */
             height: 50px; /* 設定按鈕高度 */
             background-size: contain; /* 讓背景圖片完整顯示 */
@@ -104,7 +106,7 @@
             transform: rotate(180deg);
         }
 
-        .button-container button:hover {
+        .button-container_page button:hover {
             background-color: #0a0a0a;
         }
         .bottom-nav {
@@ -125,186 +127,382 @@
             cursor: pointer;
             border-radius: 5px;
         }
-
     </style>
+     <div class="grid grid-cols-5 gap-2 mb-4">
+        <button class="bg-gray-500 rounded" onclick="goToPage('index.html')">回首頁</button>
+        <button class="bg-gray-500 rounded" onclick="goToPage('tickets.html')">機票</button>
+        <button class="bg-gray-500 rounded" onclick="goToPage('schedule.html')">雪場</button>
+        <button class="bg-gray-500 rounded" onclick="goToPage('RentCar.html')">租車</button>
+        <button class="bg-gray-500 rounded" onclick="goToPage('viewport.html')">記帳</button>
+    </div>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.8/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-
-<div class="container" id="pageContainer">
-    <!-- Day 1 -->
-    <div class="page" id="day1">
-        <div class="image-container" style="background-image: url('jpg/day1.jpg');"></div>
-        <div class="title">Day 1 - 出發東京</div>
-        <div class="content">
-            <ul>
-                <li>04:00 桃園機場</li>
-                <li>11:00 成田機場，轉車東京</li>
-                <li>14:00 池袋車站，寄放行李</li>
-                <li>15:00 原宿巡禮，明治神宮，代代木</li>
-                <li>17:00 逛街，自由時間</li>
-                <li>19:15 超讚燒烤，Yoroniku</li>
-            </ul>
+    <div class="container" id="pageContainer" x-data="schedules">
+        <!-- Day 1 -->
+        <div class="page" id="day1">
+            <!-- 主照片 -->
+            <div class="image-container" style="background-image: url('jpg/day1.jpg');"></div>
+            <h2 class="text-3xl font-bold mb-2 text-center">出發東京</h2>
+            <!-- 日曆顯示 -->
+            <div class="calendar">
+                <div class="day">
+                    <h2>3/15 第1天</h2>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>地點</th>
+                                <th>行程</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>04:00 AM</td>
+                                <td>桃園機場</td>
+                                <td>準備起飛</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>11:00 AM</td>
+                                <td>成田機場</td>
+                                <td>轉車東京</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>14:00 PM</td>
+                                <td>池袋</td>
+                                <td>寄放行李</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>15:00 PM</td>
+                                <td>原宿</td>
+                                <td>巡禮明治神宮、代代木</td>
+                                <td>超美景點</td>
+                            </tr>
+                            <tr>
+                                <td>17:00 PM</td>
+                                <td>原宿</td>
+                                <td>逛街</td>
+                                <td>自由時間</td>
+                            </tr>
+                            <tr>
+                                <td>19:00 PM</td>
+                                <td>原宿</td>
+                                <td>晚餐-燒烤 Yoroniku</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="button-container_page">
+                <button onclick="prevPage(1)"></button>
+                <button onclick="nextPage(2)" class= "next-button"></button>
+            </div>
         </div>
-        <div class="button-container">
-            <button onclick="prevPage(1)"></button>
-            <button onclick="nextPage(2)" class= "next-button"></button>
+        <!-- Day 2 -->
+        <div class="page" id="day2" style="display: none;">
+            <!-- 主照片 -->
+            <div class="image-container" style="background-image: url('jpg/day2.jpg');"></div>
+            <h2 class="text-3xl font-bold mb-2 text-center">東京逛街</h2>
+            <!-- 日曆顯示 -->
+            <div class="calendar">
+                <div class="day">
+                    <h2>3/16 第2天</h2>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>地點</th>
+                                <th>行程</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09:00 AM</td>
+                                <td>築地</td>
+                                <td>早餐時間</td>
+                                <td>醒得來的人去吃海鮮</td>
+                            </tr>
+                            <tr>
+                                <td>12:00 AM</td>
+                                <td>上野</td>
+                                <td>午餐時間</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>14:00 PM</td>
+                                <td>上野</td>
+                                <td>上野恩賜公園</td>
+                                <td>超美櫻花、自由時間</td>
+                            </tr>
+                            <tr>
+                                <td>18:00 PM</td>
+                                <td>秋葉原</td>
+                                <td>逛街</td>
+                                <td>自由時間</td>
+                            </tr>
+                            <tr>
+                                <td>19:00 PM</td>
+                                <td>秋葉原</td>
+                                <td>晚餐時間</td>
+                                <td>源杰岱柏 摸欸摸欸Q</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="button-container_page">
+                <button onclick="prevPage(1)" class= "prev-button"></button>
+                <button onclick="nextPage(3)" class= "next-button"></button>
+            </div>
         </div>
-        <!-- 加入五個新按鈕 -->
-        <div class="bottom-nav">
-            <button onclick="goToPage('tickets.html')">機票資訊</button>
-            <button onclick="goToPage('schedule.html')">行程資訊</button>
-            <button onclick="goToPage('RentCar.html')">租車資訊</button>
-            <button onclick="goToPage('snowboard.html')">滑雪資訊</button>
-            <button onclick="goToPage('viewport.html')">記帳系統</button>
-            <button onclick="goToPage('index.html')">回首頁</button>
+        <!-- Day 3 -->
+        <div class="page" id="day3" style="display: none;">
+            <!-- 主照片 -->
+            <div class="image-container" style="background-image: url('jpg/day3.jpg');"></div>
+            <h2 class="text-3xl font-bold mb-2 text-center">出發輕井澤</h2>
+            <!-- 日曆顯示 -->
+            <div class="calendar">
+                <div class="day">
+                    <h2>3/17 第3天</h2>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>地點</th>
+                                <th>行程</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>08:00 AM</td>
+                                <td>池袋</td>
+                                <td>前往新宿租車</td>
+                                <td>駕駛前往就好</td>
+                            </tr>
+                            <tr>
+                                <td>09:15 AM</td>
+                                <td>民宿</td>
+                                <td>上行李出發輕井澤</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>12:30 PM</td>
+                                <td>輕井澤</td>
+                                <td>午餐時間</td>
+                                <td>川上庵</td>
+                            </tr>
+                            <tr>
+                                <td>14:00 PM</td>
+                                <td>輕井澤</td>
+                                <td>超市買烤肉食材</td>
+                                <td>DELiCiA</td>
+                            </tr>
+                            <tr>
+                                <td>15:00 PM</td>
+                                <td>輕井澤</td>
+                                <td>Check-in超讚民宿</td>
+                                <td>Polar House Asama Villa</td>
+                            </tr>
+                            <tr>
+                                <td>16:30 PM</td>
+                                <td>輕井澤</td>
+                                <td>逛景點 [待議]</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>18:00 PM</td>
+                                <td>輕井澤</td>
+                                <td>晚餐時間</td>
+                                <td>烤肉派對</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 可以繼續添加更多天數 -->
+            </div>
+            <div class="button-container_page">
+                <button onclick="prevPage(2)" class= "prev-button"></button>
+                <button onclick="nextPage(4)" class= "next-button"></button>
+            </div>
+        </div>
+        <!-- Day 4 -->
+        <div class="page" id="day4" style="display: none;">
+            <!-- 主照片 -->
+            <div class="image-container" style="background-image: url('jpg/day4.jpg');"></div>
+            <h2 class="text-3xl font-bold mb-2 text-center">輕井澤滑雪</h2>
+            <!-- 日曆顯示 -->
+            <div class="calendar">
+                <div class="day">
+                    <h2>3/18 第4天</h2>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>地點</th>
+                                <th>行程</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09:00 AM</td>
+                                <td>輕井澤</td>
+                                <td>前往王子滑雪場</td>
+                                <td>租借設備、開始滑雪</td>
+                            </tr>
+                            <tr>
+                                <td>12:30 AM</td>
+                                <td>王子滑雪場</td>
+                                <td>午餐時間</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>14:00 PM</td>
+                                <td>王子滑雪場</td>
+                                <td>繼續滑雪</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>17:00 PM</td>
+                                <td>王子滑雪場</td>
+                                <td>回程準備晚餐休息</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>19:00 PM</td>
+                                <td>輕井澤</td>
+                                <td>復原身體</td>
+                                <td>要記得先買好撒龍斯布 休足時間</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="button-container_page">
+                <button onclick="prevPage(3)" class= "prev-button"></button>
+                <button onclick="nextPage(5)" class= "next-button"></button>
+            </div>
+        </div>
+        <!-- Day 5 -->
+        <div class="page" id="day5" style="display: none;">
+            <!-- 主照片 -->
+            <div class="image-container" style="background-image: url('jpg/day5.jpg');"></div>
+            <h2 class="text-3xl font-bold mb-2 text-center">悲慘回家</h2>
+            <!-- 日曆顯示 -->
+            <div class="calendar">
+                <div class="day">
+                    <h2>3/16 第2天</h2>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>時間</th>
+                                <th>地點</th>
+                                <th>行程</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09:00 AM</td>
+                                <td>輕井澤</td>
+                                <td>準備退房</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>12:00 AM</td>
+                                <td>往成田機場的路上</td>
+                                <td>午餐時間</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>14:30 PM</td>
+                                <td>成田機場</td>
+                                <td>退還租車</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>15:15 PM</td>
+                                <td>成田機場</td>
+                                <td>準備報到 出發回國</td>
+                                <td>17:15起飛</td>
+                            </tr>
+                            <tr>
+                                <td>20:20 PM</td>
+                                <td>桃園機場</td>
+                                <td>抵達台灣</td>
+                                <td>好可憐</td>
+                            </tr>
+                            <tr>
+                                <td>21:00 PM</td>
+                                <td>續攤?</td>
+                                <td>續攤?</td>
+                                <td>回家?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 可以繼續添加更多天數 -->
+            </div>
+            <div class="button-container_page">
+                <button onclick="prevPage(4)" class= "prev-button"></button>
+            </div>
         </div>
     </div>
+    <script>
+        // 這裡可以加些邏輯讓行事曆更動態
+        let currentPage = 1;
 
-    <!-- Day 2 -->
-    <div class="page" id="day2" style="display: none;">
-        <div class="image-container" style="background-image: url('jpg/day2.jpg');"></div>
-        <div class="title">Day 2 - 東京逛街</div>
-        <div class="content">
-            <ul>
-                <li>早上：起得來的人去築地吃海鮮</li>
-                <li>中午：拉麵鴨to蔥/宇奈 鰻魚飯</li>
-                <li>下午：上野恩賜公園、櫻花有夠美</li>
-                <li>晚上：[晚餐要討論]</li>
-            </ul>
-        </div>
-        <div class="button-container">
-            <button onclick="prevPage(1)" class= "prev-button"></button>
-            <button onclick="nextPage(3)" class= "next-button"></button>
-        </div>
-        <!-- 加入五個新按鈕 -->
-        <div class="bottom-nav">
-            <button onclick="goToPage('tickets.html')">機票資訊</button>
-            <button onclick="goToPage('schedule.html')">行程資訊</button>
-            <button onclick="goToPage('RentCar.html')">租車資訊</button>
-            <button onclick="goToPage('snowboard.html')">滑雪資訊</button>
-            <button onclick="goToPage('viewport.html')">記帳系統</button>
-            <button onclick="goToPage('index.html')">回首頁</button>
-        </div>
-    </div>
-
-    <!-- Day 3 -->
-    <div class="page" id="day3" style="display: none;">
-        <div class="image-container" style="background-image: url('jpg/day3.jpg');"></div>
-        <div class="title">Day 3 - 出發輕井澤</div>
-        <div class="content">
-            <ul>
-                <li>08:00 駕駛出發去新宿租車</li>
-                <li>09:15 上行李出發輕井澤</li>
-                <li>12:30 午餐時間 川上庵輕井澤本店</li>
-                <li>13:30 DELiCiA 超市買烤肉食材</li>
-                <li>14:30 Check-in 超讚民宿</li>
-                <li>16:00 [輕井澤景點 小諸城 要討論]</li>
-            </ul>
-        </div>
-        <div class="button-container">
-            <button onclick="prevPage(2)" class= "prev-button"></button>
-            <button onclick="nextPage(4)" class= "next-button"></button>
-        </div>
-        <!-- 加入五個新按鈕 -->
-        <div class="bottom-nav">
-            <button onclick="goToPage('tickets.html')">機票資訊</button>
-            <button onclick="goToPage('schedule.html')">行程資訊</button>
-            <button onclick="goToPage('RentCar.html')">租車資訊</button>
-            <button onclick="goToPage('snowboard.html')">滑雪資訊</button>
-            <button onclick="goToPage('viewport.html')">記帳系統</button>
-            <button onclick="goToPage('index.html')">回首頁</button>
-        </div>
-    </div>
-
-    <!-- Day 4 -->
-    <div class="page" id="day4" style="display: none;">
-        <div class="image-container" style="background-image: url('jpg/day4.jpg');"></div>
-        <div class="title">Day 4 - 輕井澤滑雪</div>
-        <div class="content">
-            <ul>
-                <li>早上：準備滑雪裝備</li>
-                <li>中午：滑雪休息</li>
-                <li>下午：繼續滑雪</li>
-                <li>晚上：回到飯店休息</li>
-            </ul>
-        </div>
-        <div class="button-container">
-            <button onclick="prevPage(3)" class= "prev-button"></button>
-            <button onclick="nextPage(5)" class= "next-button"></button>
-        </div>
-        <!-- 加入五個新按鈕 -->
-        <div class="bottom-nav">
-            <button onclick="goToPage('tickets.html')">機票資訊</button>
-            <button onclick="goToPage('schedule.html')">行程資訊</button>
-            <button onclick="goToPage('RentCar.html')">租車資訊</button>
-            <button onclick="goToPage('snowboard.html')">滑雪資訊</button>
-            <button onclick="goToPage('viewport.html')">記帳系統</button>
-            <button onclick="goToPage('index.html')">回首頁</button>
-        </div>
-    </div>
-
-    <!-- Day 5 -->
-    <div class="page" id="day5" style="display: none;">
-        <div class="image-container" style="background-image: url('jpg/day5.jpg');"></div>
-        <div class="title">Day 5 - 悽慘回家</div>
-        <div class="content">
-            <ul>
-                <li>早上：整理行李準備回程</li>
-                <li>中午：搭乘飛機回家</li>
-                <li>晚上：回到台灣好可憐，[續攤?]</li>
-            </ul>
-        </div>
-        <div class="button-container">
-            <button onclick="prevPage(4)" class= "prev-button"></button>
-        </div>
-        <!-- 加入五個新按鈕 -->
-        <div class="bottom-nav">
-            <button onclick="goToPage('tickets.html')">機票資訊</button>
-            <button onclick="goToPage('schedule.html')">行程資訊</button>
-            <button onclick="goToPage('RentCar.html')">租車資訊</button>
-            <button onclick="goToPage('snowboard.html')">滑雪資訊</button>
-            <button onclick="goToPage('viewport.html')">記帳系統</button>
-            <button onclick="goToPage('index.html')">回首頁</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    let currentPage = 1;
-
-    // 顯示下一頁
-    function nextPage(pageNumber) {
-        document.getElementById(`day${currentPage}`).style.display = 'none';
-        document.getElementById(`day${pageNumber}`).style.display = 'flex';
-        currentPage = pageNumber;
-    }
-
-    // 顯示上一頁
-    function prevPage(pageNumber) {
-        document.getElementById(`day${currentPage}`).style.display = 'none';
-        document.getElementById(`day${pageNumber}`).style.display = 'flex';
-        currentPage = pageNumber;
-    }
-    function goToPage(url) {
-        window.location.href = url;
-    }
-
-    // 手勢滑動
-    let startX;
-
-    document.body.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-    });
-
-    document.body.addEventListener('touchend', (e) => {
-        let endX = e.changedTouches[0].clientX;
-        if (startX - endX > 50 && currentPage < 5) {
-            nextPage(currentPage + 1); // 左滑，跳到下一頁
-        } else if (endX - startX > 50 && currentPage > 1) {
-            prevPage(currentPage - 1); // 右滑，跳到上一頁
+        // 顯示下一頁
+        function nextPage(pageNumber) {
+            document.getElementById(`day${currentPage}`).style.display = 'none';
+            document.getElementById(`day${pageNumber}`).style.display = 'flex';
+            currentPage = pageNumber;
         }
-    });
-</script>
+
+        // 顯示上一頁
+        function prevPage(pageNumber) {
+            document.getElementById(`day${currentPage}`).style.display = 'none';
+            document.getElementById(`day${pageNumber}`).style.display = 'flex';
+            currentPage = pageNumber;
+        }
+        function goToPage(url) {
+            window.location.href = url;
+        }
+
+        // 手勢滑動
+        let startX;
+
+        document.body.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        document.body.addEventListener('touchend', (e) => {
+            let endX = e.changedTouches[0].clientX;
+            if (startX - endX > 50 && currentPage < 5) {
+                nextPage(currentPage + 1); // 左滑，跳到下一頁
+            } else if (endX - startX > 50 && currentPage > 1) {
+                prevPage(currentPage - 1); // 右滑，跳到上一頁
+            }
+        });
+        // 目前已經實現基本的左右滑動顯示
+    </script>
 
 </body>
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('schedules', () => ({
+            goToPage(url) {
+                window.location.href = url;
+            }
+        }));
+    });
+</script>
 </html>

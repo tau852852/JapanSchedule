@@ -37,9 +37,17 @@
         }
         
     </style>
+    <div class="grid grid-cols-5 gap-2 mb-4">
+        <button class="bg-gray-500 rounded" @click="goToPage('index.html')">回首頁</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('tickets.html')">機票</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('schedule.html')">行程</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('snowboard.html')">雪場</button>
+        <button class="bg-gray-500 rounded" @click="goToPage('viewport.html')">記帳</button>
+    </div>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.8/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black text-white p-6">
+<body class="bg-black text-white p-6"  x-data="snowResort">
     <div class="max-w-4xl mx-auto">
         <h1 class="text-2xl font-bold mb-4 text-center">租車資訊</h1>
         
@@ -54,13 +62,15 @@
                     <th class="p-2">標價</th>
                     <th class="p-2">座位</th>
                     <th class="p-2">空間</th>
+                    <th class="p-2">行李</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="border-t border-gray-700">
-                    <td class="p-2">$1500/天</td>
-                    <td class="p-2">5</td>
-                    <td class="p-2">大</td>
+                    <td class="p-2">NT$ 3,745 /天</td>
+                    <td class="p-2">7 人</td>
+                    <td class="p-2">3 排</td>
+                    <td class="p-2">2 件</td>
                 </tr>
             </tbody>
         </table>
@@ -132,5 +142,107 @@
         </div>
     </div>
 
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4 text-center">租車資訊 2</h1>
+        
+        <!-- 主圖片 -->
+        <div class="image-container" style="background-image: url('jpg/car/sienta_1.jpg');"></div>
+        
+        <!-- 租車資訊表格 -->
+        <h2 class="text-xl font-bold mb-2">Toyota - Sienta</h2>
+        <table class="w-full mb-4 bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="bg-gray-700 text-left">
+                    <th class="p-2">標價</th>
+                    <th class="p-2">座位</th>
+                    <th class="p-2">空間</th>
+                    <th class="p-2">行李</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">NT$ 3,745 /天</td>
+                    <td class="p-2">5 人</td>
+                    <td class="p-2">2 排</td>
+                    <td class="p-2">2 件</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="text-xl font-bold mb-2">租車資訊</h2>
+        <table class="w-full mb-4 bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="bg-gray-700 text-left">
+                    <th class="p-2">租借地點</th>
+                    <th class="p-2">租借日期</th>
+                    <th class="p-2">租借時間</th>
+ 
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">新宿車站</td>
+                    <td class="p-2">3/17</td>
+                    <td class="p-2">AM 8:30</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="text-xl font-bold mb-2">還車資訊</h2>
+        <table class="w-full mb-4 bg-gray-900 rounded-lg">
+            <thead>
+                <tr class="bg-gray-700 text-left">
+                    <th class="p-2">歸還地點</th>
+                    <th class="p-2">租借日期</th>
+                    <th class="p-2">租借時間</th>
+ 
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t border-gray-700">
+                    <td class="p-2">成田機場(再議)</td>
+                    <td class="p-2">3/19</td>
+                    <td class="p-2">PM 13:00</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="text-l font-bold mb-2">注意事項</h2>
+        <h2 class="text-l">1. 要申請E-tag</h2>
+        <h2 class="text-l">2. 還車時油要加滿</h2>
+        <h2 class="text-l mb-4">3. 還車時油要加滿</h2>
+    
+        
+        <!-- 車輛細節圖片 -->
+        <h2 class="text-xl font-bold mb-2">車輛細節</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <h3 class="text-left bg-gray-600 font-semibold">車尾</h3>
+                <div class="image-container_sub" style="background-image: url('jpg/car/sienta_6.jpg');"></div>
+            </div>
+            <div>
+                <h3 class="text-left bg-gray-600 font-semibold">內裝</h3>
+                <div class="image-container_sub" style="background-image: url('jpg/car/sienta_4.jpg');"></div>
+            </div>
+            <div>
+                <h3 class="text-left bg-gray-600 font-semibold">空間</h3>
+                <div class="image-container_sub" style="background-image: url('jpg/car/sienta_2.jpg');"></div>
+            </div>
+            <div>
+                <h3 class="text-left bg-gray-600 font-semibold">後行李箱</h3>
+                <div class="image-container_sub" style="background-image: url('jpg/car/sienta_3.jpg');"></div>
+            </div>
+        </div>
+        
+        <div class="button-container">
+            <button onclick="prevPage(2)" class= "next-button"></button>
+        </div>
+    </div>
 </body>
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('snowResort', () => ({
+            goToPage(url) {
+                window.location.href = url;
+            }
+        }));
+    });
+</script>
 </html>
